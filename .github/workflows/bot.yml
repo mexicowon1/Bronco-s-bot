@@ -1,0 +1,28 @@
+name: Bronco Bot
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get bot files
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Start Bronco Bot
+        run: npm start
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          PREFIX: "!"
+          WELCOME_CHANNEL_ID: ${{ secrets.WELCOME_CHANNEL_ID }}
+          VERIFY_CHANNEL_ID: ${{ secrets.VERIFY_CHANNEL_ID }}
+          VERIFIED_ROLE_ID: ${{ secrets.VERIFIED_ROLE_ID }}
